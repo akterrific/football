@@ -1,0 +1,14 @@
+#!/bin/bash
+
+service nginx restart
+
+if [ ! -f .env ]; then
+    cp .env.example .env
+    chown ${USER}:${USER} .env
+    composer install
+    cp php.ini /usr/local/etc/php/
+    php artisan key:generate
+fi;
+
+php-fpm
+#.dockerignore .gitignore add vendor .env hub.docker.com
